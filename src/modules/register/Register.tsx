@@ -198,7 +198,7 @@ const Register = () => {
               </div>
             </div>
           </form>
-          <div className="social-auth-links text-center">
+          {/* <div className="social-auth-links text-center">
             <Button
               className="mb-2"
               onClick={registerByFacebook}
@@ -219,7 +219,7 @@ const Register = () => {
               <i className="fab fa-google mr-2" />
               {t('login.button.signUp.social', { what: 'Google' })}
             </Button>
-          </div>
+          </div> */}
           <Link to="/login" className="text-center">
             {t('register.alreadyHave')}
           </Link>

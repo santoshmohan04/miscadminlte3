@@ -168,7 +168,7 @@ const Login = () => {
               </div>
             </div>
           </form>
-          <div className="social-auth-links text-center mt-2 mb-3">
+          {/* <div className="social-auth-links text-center mt-2 mb-3">
             <Button
               className="mb-2"
               onClick={loginByFacebook}
@@ -189,7 +189,7 @@ const Login = () => {
               <i className="fab fa-google mr-2" />
               {t('login.button.signIn.social', { what: 'Google' })}
             </Button>
-          </div>
+          </div> */}
           <p className="mb-1">
             <Link to="/forgot-password">{t('login.label.forgotPass')}</Link>
           </p>
