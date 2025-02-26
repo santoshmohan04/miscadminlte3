@@ -20,26 +20,18 @@ export const MENU: IMenuItem[] = [
     path: '/',
   },
   {
-    name: i18n.t('menusidebar.label.blank'),
+    name: i18n.t('menusidebar.label.projects'),
     icon: 'fas fa-wrench nav-icon',
-    path: '/blank',
+    path: '/projects',
   },
   {
-    name: i18n.t('menusidebar.label.mainMenu'),
-    icon: 'far fa-caret-square-down nav-icon',
-    children: [
-      {
-        name: i18n.t('menusidebar.label.subMenu'),
-        icon: 'fas fa-hammer nav-icon',
-        path: '/sub-menu-1',
-      },
-
-      {
-        name: i18n.t('menusidebar.label.blank'),
-        icon: 'fas fa-cogs nav-icon',
-        path: '/sub-menu-2',
-      },
-    ],
+    name: i18n.t('menusidebar.label.tasks'),
+    icon: 'fas fa-wrench nav-icon',
+    path: '/tasks',
+  },{
+    name: i18n.t('menusidebar.label.users'),
+    icon: 'fas fa-wrench nav-icon',
+    path: '/users',
   },
 ];
 

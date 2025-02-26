@@ -77,7 +77,9 @@
     "label": {
       "dashboard": "Dashboard",
       "profile": "Profile",
-      "blank": "Blank",
+      "projects": "Projects",
+      "tasks": "Tasks",
+      "users": "Users",
       "mainMenu": "Main Menu",
       "subMenu": "Sub Menu"
     }

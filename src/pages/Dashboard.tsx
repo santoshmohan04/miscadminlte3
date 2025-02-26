@@ -13,7 +13,7 @@ const Dashboard = () => {
                 <div className="inner">
                   <h3>150</h3>
 
-                  <p>New Orders</p>
+                  <p>Projects</p>
                 </div>
                 <div className="icon">
                   <i className="ion ion-bag" />
