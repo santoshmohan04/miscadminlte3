@@ -25,6 +25,10 @@ import {
   getAuthStatus,
   getFacebookLoginStatus,
 } from './utils/oidc-providers';
+import AddUpdateProject from './pages/AddUpdateProject';
+import Tasks from './pages/Tasks';
+import Users from './pages/Users';
+import AddUpdateUserDetails from './pages/AddUpdateUser';
 
 const { VITE_NODE_ENV } = import.meta.env;
 
@@ -99,6 +103,12 @@ const App = () => {
             <Route path="/sub-menu-2" element={<Projects />} />
             <Route path="/sub-menu-1" element={<SubMenu />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/addproject" element={<AddUpdateProject />} />
+            <Route path="/editproject" element={<AddUpdateProject />} />
+            <Route path="/tasks" element={<Tasks />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/adduser" element={<AddUpdateUserDetails />} />
+            <Route path="/edituser" element={<AddUpdateUserDetails />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/" element={<Dashboard />} />
           </Route>

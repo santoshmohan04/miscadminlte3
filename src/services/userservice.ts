@@ -4,7 +4,7 @@ import axios from "axios";
 import { User } from "./usertypes"; // Adjust the import based on your project structure
 import { ApiResponse } from "./sharedtypes";
 
-const apiBaseUri = "http://localhost:5173";
+const apiBaseUri = "http://localhost:4300";
 
 const endpoint_user_get = "/users";
 const endpoint_user_add = "/users/add";

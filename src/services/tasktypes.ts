@@ -4,6 +4,7 @@ import { User } from "./usertypes"
 export interface Task {
     Task_ID?: number,
     Task: string,
+    Status: number,
     Start_Date?: string,
     End_Date?: string,
     Priority: number,

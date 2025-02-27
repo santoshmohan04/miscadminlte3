@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { MenuItem } from '@components';
 import { Image } from '@profabric/react-components';
 import styled from 'styled-components';
-import { SidebarSearch } from '@app/components/sidebar-search/SidebarSearch';
 import i18n from '@app/utils/i18n';
 
 export interface IMenuItem {
@@ -21,16 +20,16 @@ export const MENU: IMenuItem[] = [
   },
   {
     name: i18n.t('menusidebar.label.projects'),
-    icon: 'fas fa-wrench nav-icon',
+    icon: 'fas fa-project-diagram nav-icon',
     path: '/projects',
   },
   {
     name: i18n.t('menusidebar.label.tasks'),
-    icon: 'fas fa-wrench nav-icon',
+    icon: 'fas fa-tasks nav-icon',
     path: '/tasks',
   },{
     name: i18n.t('menusidebar.label.users'),
-    icon: 'fas fa-wrench nav-icon',
+    icon: 'fas fa-users nav-icon',
     path: '/users',
   },
 ];
@@ -58,13 +57,13 @@ const MenuSidebar = () => {
     <aside className={`main-sidebar elevation-4 ${sidebarSkin}`}>
       <Link to="/" className="brand-link">
         <StyledBrandImage
-          src="/img/logo.png"
+          src="/img/project-skills.jpg"
           alt="AdminLTE Logo"
           width={33}
           height={33}
           rounded
         />
-        <span className="brand-text font-weight-light">AdminLTE 3</span>
+        <span className="brand-text font-weight-light">Project Manager</span>
       </Link>
       <div className="sidebar">
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -83,10 +82,6 @@ const MenuSidebar = () => {
               {authentication.profile.email}
             </Link>
           </div>
-        </div>
-
-        <div className="form-inline">
-          <SidebarSearch />
         </div>
 
         <nav className="mt-2" style={{ overflowY: 'hidden' }}>

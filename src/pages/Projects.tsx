@@ -3,27 +3,16 @@ import DataTable from "react-data-table-component";
 import { ContentHeader } from "@components";
 import { Project } from "@app/services/projecttypes";
 import { ProjectService } from "@app/services/projectservice";
+import { useNavigate } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
+import { customStyles, formatDate } from "@app/utils/helpers";
 
 const projectService = new ProjectService();
-
-// Utility function to format dates
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-};
 
 const columns = (
   onEdit: (project: Project) => void,
   onDelete: (projectId: number) => void
 ) => [
-  {
-    name: "Project Id",
-    selector: (row: any) => row.Project_ID,
-    sortable: true,
-  },
   { name: "Project", selector: (row: any) => row.Project, sortable: true },
   { name: "Tasks", selector: (row: any) => row.NoOfTasks, sortable: true },
   {
@@ -41,7 +30,25 @@ const columns = (
     selector: (row: any) => formatDate(row.End_Date),
     sortable: true,
   },
-  { name: "Priority", selector: (row: any) => row.Priority, sortable: true },
+  {
+    name: "Priority",
+    selector: (row: any) => {
+      const priority = row.Priority;
+      const progressValue = Math.min(Math.max(priority, 0), 30); // Ensure priority is between 0 and 30
+
+      let color = "success"; // Default color (green)
+      if (priority > 20)
+        color = "danger"; // High priority, red
+      else if (priority > 10) color = "warning"; // Medium priority, yellow
+
+      return (
+        <h3>
+          <span className={`badge bg-${color}`}>{progressValue}</span>
+        </h3>
+      );
+    },
+    sortable: true,
+  },
   {
     name: "Actions",
     cell: (row: any) => (
@@ -64,6 +71,11 @@ const Projects = () => {
   const [filterText, setFilterText] = useState("");
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProjectId, setSelectedProjectId] = useState<number | null>(
+    null
+  );
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProjects();
@@ -86,33 +98,33 @@ const Projects = () => {
   );
 
   const handleEdit = async (project: Project) => {
-    // Implement your edit logic here, e.g., open a modal with a form
-    console.log("Edit project:", project);
-    try {
-      await projectService.editProject(project);
-      // Refresh the project list after deletion
-      fetchProjects();
-    } catch (error) {
-      console.error("Error editing project:", error);
-    }
-    // You can call projectService.editProject here if needed
+    navigate("/editproject", { state: { project } });
   };
 
-  const handleDelete = async (projectId: number) => {
-    if (window.confirm("Are you sure you want to suspend this project?")) {
+  const handleShowModal = (projectId: number) => {
+    setSelectedProjectId(projectId);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedProjectId(null);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (selectedProjectId) {
       try {
-        await projectService.deleteProject(projectId);
-        // Refresh the project list after deletion
-        fetchProjects();
+        await projectService.deleteProject(selectedProjectId);
+        fetchProjects(); // Refresh project list
       } catch (error) {
         console.error("Error suspending project:", error);
       }
     }
+    handleCloseModal();
   };
 
   const handleAddProject = () => {
-    // Implement your logic to add a new project, e.g., open a modal with a form
-    console.log("Add new project");
+    navigate("/addproject");
   };
 
   return (
@@ -132,23 +144,42 @@ const Projects = () => {
                   onChange={(e) => setFilterText(e.target.value)}
                   className="form-control mt-2 custom-input mr-auto"
                 />
-                <button onClick={handleAddProject} className="btn btn-success mt-2">
+                <button
+                  onClick={handleAddProject}
+                  className="btn btn-success mt-2"
+                >
                   <i className="fa fa-plus" aria-hidden="true"></i> Add Project
                 </button>
               </div>
               <div className="card-body">
                 <DataTable
-                  columns={columns(handleEdit, handleDelete)} // Pass the edit and delete handlers
+                  columns={columns(handleEdit, handleShowModal)} // Pass the edit and delete handlers
                   data={filteredProjects} // Use filtered projects here
                   pagination
                   highlightOnHover
                   responsive
+                  customStyles={customStyles}
                 />
               </div>
             </div>
           </div>
         </section>
       )}
+      {/* React-Bootstrap Modal */}
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Suspension</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to suspend this project?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleConfirmDelete}>
+            Suspend
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

@@ -1,6 +1,12 @@
-
+import { useNavigate } from "react-router-dom";
 
 const ContentHeader = ({ title }: { title: string }) => {
+  const navigate = useNavigate();
+
+  const handleRedirect = (route: string) => {
+    navigate(route);
+  };
+
   return (
     <section className="content-header">
       <div className="container-fluid">
@@ -11,7 +17,9 @@ const ContentHeader = ({ title }: { title: string }) => {
           <div className="col-sm-6">
             <ol className="breadcrumb float-sm-right">
               <li className="breadcrumb-item">
-                <a href="/">Home</a>
+                <a href="#" onClick={(e) => { e.preventDefault(); handleRedirect('/'); }}>
+                  Home
+                </a>
               </li>
               <li className="breadcrumb-item active">{title}</li>
             </ol>
@@ -23,3 +31,4 @@ const ContentHeader = ({ title }: { title: string }) => {
 };
 
 export default ContentHeader;
+

@@ -39,3 +39,23 @@ export const removeWindowClass = (classList: string) => {
     window.classList.remove(classList);
   }
 };
+
+export const customStyles = {
+  headCells: {
+    style: {
+      fontWeight: "bold", // Makes headers bold
+      fontSize: "16px", // Adjust size if needed
+      backgroundColor: "#f4f4f4", // Optional: Light gray background
+      color: "#000", // Optional: Header text color
+    },
+  },
+};
+
+// Utility function to format dates
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
