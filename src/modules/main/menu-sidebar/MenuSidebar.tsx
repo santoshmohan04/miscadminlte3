@@ -22,15 +22,51 @@ export const MENU: IMenuItem[] = [
     name: i18n.t('menusidebar.label.projects'),
     icon: 'fas fa-project-diagram nav-icon',
     path: '/projects',
+    children: [
+      {
+        name: i18n.t('menusidebar.label.projectlist'),
+        icon: 'fas fa-clipboard-list nav-icon',
+        path: '/projects',
+      },
+      {
+        name: i18n.t('menusidebar.label.addproject'),
+        icon: 'fas fa-folder-plus nav-icon',
+        path: '/addproject',
+      },
+    ],
   },
   {
     name: i18n.t('menusidebar.label.tasks'),
     icon: 'fas fa-tasks nav-icon',
     path: '/tasks',
+    children: [
+      {
+        name: i18n.t('menusidebar.label.taskslist'),
+        icon: 'fas fa-tasks nav-icon',
+        path: '/tasks',
+      },
+      {
+        name: i18n.t('menusidebar.label.addtask'),
+        icon: 'fas fa-plus-square nav-icon',
+        path: '/addtask',
+      },
+    ],
   },{
     name: i18n.t('menusidebar.label.users'),
     icon: 'fas fa-users nav-icon',
     path: '/users',
+    children: [
+      {
+        name: i18n.t('menusidebar.label.userslist'),
+        icon: 'fas fa-users nav-icon',
+        path: '/users',
+      },
+      {
+        name: i18n.t('menusidebar.label.adduser'),
+        icon: 'fas fa-user-plus nav-icon',
+        path: '/adduser',
+      },
+    ],
   },
 ];
 

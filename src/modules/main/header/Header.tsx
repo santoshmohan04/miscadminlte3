@@ -1,14 +1,12 @@
-import { useCallback } from 'react';
+import { useCallback, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  toggleSidebarMenu,
-} from '@app/store/reducers/ui';
+import { toggleSidebarMenu } from '@app/store/reducers/ui';
 import UserDropdown from '@app/modules/main/header/user-dropdown/UserDropdown';
 
-const Header = () => {
-  const [t] = useTranslation();
+const HeaderContent = () => {
+  const { t } = useTranslation(); // Using the new syntax without array destructuring
   const dispatch = useDispatch();
   const navbarVariant = useSelector((state: any) => state.ui.navbarVariant);
   const headerBorder = useSelector((state: any) => state.ui.headerBorder);
@@ -49,5 +47,11 @@ const Header = () => {
     </nav>
   );
 };
+
+const Header = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <HeaderContent />
+  </Suspense>
+);
 
 export default Header;

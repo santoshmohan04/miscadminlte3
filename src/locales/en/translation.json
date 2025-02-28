@@ -78,8 +78,14 @@
       "dashboard": "Dashboard",
       "profile": "Profile",
       "projects": "Projects",
+      "projectlist": "Project List",
+      "addproject": "Add Project",
       "tasks": "Tasks",
+      "taskslist": "Tasks List",
+      "addtask": "Create Task",
       "users": "Users",
+      "userslist": "Users List",
+      "adduser": "Create User",
       "mainMenu": "Main Menu",
       "subMenu": "Sub Menu"
     }

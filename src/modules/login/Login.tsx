@@ -15,8 +15,6 @@ import { Button } from '@app/styles/common';
 
 const Login = () => {
   const [isAuthLoading, setAuthLoading] = useState(false);
-  const [isGoogleAuthLoading, setGoogleAuthLoading] = useState(false);
-  const [isFacebookAuthLoading, setFacebookAuthLoading] = useState(false);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -33,35 +31,6 @@ const Login = () => {
       navigate('/');
     } catch (error: any) {
       setAuthLoading(false);
-      toast.error(error.message || 'Failed');
-    }
-  };
-
-  const loginByGoogle = async () => {
-    try {
-      setGoogleAuthLoading(true);
-      // const response = await GoogleProvider.signinPopup();
-      // dispatch(setAuthentication(response as any));
-      // toast.success('Login is succeeded!');
-      // setGoogleAuthLoading(false);
-      // navigate('/');
-      throw new Error('Not implemented');
-    } catch (error: any) {
-      setGoogleAuthLoading(false);
-      toast.error(error.message || 'Failed');
-    }
-  };
-
-  const loginByFacebook = async () => {
-    try {
-      setFacebookAuthLoading(true);
-      // const response = await facebookLogin();
-      // dispatch(setAuthentication(response as any));
-      // setFacebookAuthLoading(false);
-      // navigate('/');
-      throw new Error('Not implemented');
-    } catch (error: any) {
-      setFacebookAuthLoading(false);
       toast.error(error.message || 'Failed');
     }
   };
@@ -90,8 +59,8 @@ const Login = () => {
       <div className="card card-outline card-primary">
         <div className="card-header text-center">
           <Link to="/" className="h1">
-            <b>Admin</b>
-            <span>LTE</span>
+            <b>Project</b>
+            <span>Manager</span>
           </Link>
         </div>
         <div className="card-body">
@@ -160,7 +129,6 @@ const Login = () => {
               <div className="col-4">
                 <Button
                   loading={isAuthLoading}
-                  disabled={isFacebookAuthLoading || isGoogleAuthLoading}
                   onClick={handleSubmit as any}
                 >
                   {t('login.button.signIn.label')}
@@ -168,28 +136,6 @@ const Login = () => {
               </div>
             </div>
           </form>
-          {/* <div className="social-auth-links text-center mt-2 mb-3">
-            <Button
-              className="mb-2"
-              onClick={loginByFacebook}
-              loading={isFacebookAuthLoading}
-              disabled={isAuthLoading || isGoogleAuthLoading}
-            >
-              <i className="fab fa-facebook mr-2" />
-              {t('login.button.signIn.social', {
-                what: 'Facebook',
-              })}
-            </Button>
-            <Button
-              variant="danger"
-              onClick={loginByGoogle}
-              loading={isGoogleAuthLoading}
-              disabled={isAuthLoading || isFacebookAuthLoading}
-            >
-              <i className="fab fa-google mr-2" />
-              {t('login.button.signIn.social', { what: 'Google' })}
-            </Button>
-          </div> */}
           <p className="mb-1">
             <Link to="/forgot-password">{t('login.label.forgotPass')}</Link>
           </p>

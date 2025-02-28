@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Main from '@modules/main/Main';
@@ -21,14 +21,13 @@ import PublicRoute from './routes/PublicRoute';
 import PrivateRoute from './routes/PrivateRoute';
 import { setAuthentication } from './store/reducers/auth';
 import {
-  GoogleProvider,
   getAuthStatus,
-  getFacebookLoginStatus,
 } from './utils/oidc-providers';
 import AddUpdateProject from './pages/AddUpdateProject';
 import Tasks from './pages/Tasks';
 import Users from './pages/Users';
 import AddUpdateUserDetails from './pages/AddUpdateUser';
+import AddUpdateTask from './pages/AddUpdateTask';
 
 const { VITE_NODE_ENV } = import.meta.env;
 
@@ -40,11 +39,9 @@ const App = () => {
 
   const [isAppLoading, setIsAppLoading] = useState(true);
 
-  const checkSession = async () => {
+  const checkSession = useCallback(async () => {
     try {
       let responses: any = await Promise.all([
-        getFacebookLoginStatus(),
-        GoogleProvider.getUser(),
         getAuthStatus(),
       ]);
 
@@ -57,18 +54,18 @@ const App = () => {
       console.log('error', error);
     }
     setIsAppLoading(false);
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     checkSession();
-  }, []);
+  }, [checkSession]);
 
   useEffect(() => {
     const size = calculateWindowSize(windowSize.width);
     if (screenSize !== size) {
       dispatch(setWindowSize(size));
     }
-  }, [windowSize]);
+  }, [dispatch, screenSize, windowSize]);
 
   useEffect(() => {
     if (location && location.pathname && VITE_NODE_ENV === 'production') {
@@ -106,6 +103,8 @@ const App = () => {
             <Route path="/addproject" element={<AddUpdateProject />} />
             <Route path="/editproject" element={<AddUpdateProject />} />
             <Route path="/tasks" element={<Tasks />} />
+            <Route path="/addtask" element={<AddUpdateTask />} />
+            <Route path="/edittask" element={<AddUpdateTask />} />
             <Route path="/users" element={<Users />} />
             <Route path="/adduser" element={<AddUpdateUserDetails />} />
             <Route path="/edituser" element={<AddUpdateUserDetails />} />
